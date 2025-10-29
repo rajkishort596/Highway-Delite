@@ -40,6 +40,4 @@ SlotSchema.virtual("isSoldOut").get(function () {
   return this.booked >= this.capacity;
 });
 
-SlotSchema.index({ experience: 1, date: 1, time: 1 }, { unique: true });
-
 export const Slot = mongoose.model("Slot", SlotSchema);

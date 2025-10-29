@@ -1,0 +1,123 @@
+[
+  {
+    "name": "Kayaking",
+    "location": "Udupi, Karnataka",
+    "price": 999,
+    "description": "Curated small-group experience. Certified guide. Safety first with gear included. Explore serene backwaters and mangroves.",
+    "minAge": 10,
+    "imageUrl": "https://images.unsplash.com/photo-1480480565647-1c4385c7c0bf",
+    "includes": ["Certified Guide", "Safety Gear", "Kayaking Equipment"],
+    "frequency": "daily",
+    "times": ["08:00 AM", "10:00 AM", "04:00 PM"],
+    "capacityPerSlot": 10
+  },
+  {
+    "name": "Nandi Hills Sunrise",
+    "location": "Bangalore",
+    "price": 899,
+    "description": "Experience a breathtaking sunrise view from the Nandi Hills after a short, guided trek.",
+    "minAge": 8,
+    "imageUrl": "https://images.unsplash.com/photo-1696761652730-9df307869117",
+    "includes": ["Guided Trek", "Breakfast Pack", "Entry Permits"],
+    "frequency": "weekends",
+    "times": ["05:00 AM"],
+    "capacityPerSlot": 20
+  },
+  {
+    "name": "Coffee Trail",
+    "location": "Coorg",
+    "price": 1299,
+    "description": "Explore the lush green coffee plantations of Coorg. Learn about coffee making from bean to cup.",
+    "minAge": 12,
+    "imageUrl": "https://images.unsplash.com/photo-1690230677155-d0051d2f64d1",
+    "includes": ["Plantation Walk", "Coffee Tasting", "Expert Guide"],
+    "frequency": "daily",
+    "times": ["09:00 AM", "02:00 PM"],
+    "capacityPerSlot": 15
+  },
+  {
+    "name": "Boat Cruise",
+    "location": "Sunderban",
+    "price": 999,
+    "description": "A serene boat cruise through the mangroves of Sunderban. Spot diverse wildlife and birds.",
+    "minAge": 5,
+    "imageUrl": "https://images.unsplash.com/photo-1554254464-7046778097bf",
+    "includes": ["Boat Charter", "Safety Vest", "Guide"],
+    "frequency": "daily",
+    "times": ["09:00 AM", "12:00 PM", "03:00 PM"],
+    "capacityPerSlot": 25
+  },
+  {
+    "name": "Bungee Jumping",
+    "location": "Manali",
+    "price": 999,
+    "description": "An adrenaline-pumping jump from a height of 83 meters over the Beas river. Safety certified.",
+    "minAge": 16,
+    "imageUrl": "https://images.unsplash.com/photo-1549221360-456a9c197d5b",
+    "includes": ["Safety Harness", "Certified Jump Master", "Souvenir T-Shirt"],
+    "frequency": "weekends",
+    "times": ["10:00 AM", "12:00 PM"],
+    "capacityPerSlot": 15
+  },
+  {
+    "name": "Desert Safari",
+    "location": "Jaisalmer",
+    "price": 1499,
+    "description": "Experience the Thar desert on a thrilling jeep safari followed by a traditional Rajasthani dinner.",
+    "minAge": 10,
+    "imageUrl": "https://images.unsplash.com/photo-1549944850-84e00be4203b",
+    "includes": ["Jeep Safari", "Camel Ride", "Dinner and Cultural Show"],
+    "frequency": "daily",
+    "times": ["03:00 PM", "05:00 PM"],
+    "capacityPerSlot": 30
+  },
+  {
+    "name": "Scuba Diving",
+    "location": "Andaman Islands",
+    "price": 3999,
+    "description": "Explore the vibrant coral reefs and marine life of the Andaman Sea with professional PADI certified instructors.",
+    "minAge": 14,
+    "imageUrl": "https://images.unsplash.com/photo-1682687982502-1529b3b33f85",
+    "includes": ["Full Gear Rental", "Dive Instructor Fee", "Boat Transfer"],
+    "frequency": "daily",
+    "times": ["08:00 AM", "11:00 AM", "02:00 PM"],
+    "capacityPerSlot": 8
+  },
+  {
+    "name": "Himalayan Trek",
+    "location": "Uttarakhand",
+    "price": 4999,
+    "description": "A multi-day trek through scenic Himalayan valleys, guided by experienced mountaineers.",
+    "minAge": 18,
+    "imageUrl": "https://images.unsplash.com/photo-1755015347269-c3969c4a0ae7",
+    "includes": ["All Meals & Tents", "Trekking Guide", "Permits"],
+    "frequency": "custom",
+    "customDays": [1, 15, 25],
+    "times": ["06:00 AM"],
+    "capacityPerSlot": 20
+  },
+  {
+    "name": "Paragliding",
+    "location": "Bir Billing, Himachal",
+    "price": 2599,
+    "description": "Tandem paragliding jump from one of the world's best sites. Enjoy panoramic views of the Dhauladhar range.",
+    "minAge": 14,
+    "imageUrl": "https://images.unsplash.com/photo-1592208128295-5aaa34f1d72b",
+    "includes": ["Tandem Pilot", "Safety Equipment", "GoPro Video"],
+    "frequency": "daily",
+    "times": ["09:00 AM", "11:00 AM", "03:00 PM"],
+    "capacityPerSlot": 12
+  },
+  {
+    "name": "Heritage Walk",
+    "location": "Jaipur, Rajasthan",
+    "price": 499,
+    "description": "Guided walking tour through the Pink City's historical markets, temples, and Havelis.",
+    "minAge": 6,
+    "imageUrl": "https://images.unsplash.com/photo-1757829316128-360e1dadd915",
+    "includes": ["Local Historian Guide", "Small Group Setting"],
+    "frequency": "daily",
+    "times": ["08:00 AM", "04:00 PM"],
+    "capacityPerSlot": 25
+  }
+]
