@@ -9,7 +9,7 @@ export const getExperiences = async () => {
   }
 };
 
-export const getExperienceById = async (id: string) => {
+export const getExperienceById = async (id: string | unknown) => {
   try {
     const res = await axios.get(`/experiences/${id}`);
     return res.data.data;
