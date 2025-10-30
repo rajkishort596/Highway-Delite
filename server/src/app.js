@@ -14,6 +14,14 @@ app.get(
   })
 );
 
+import experienceRoter from "./routes/experience.routes.js";
+import bookingRouter from "./routes/booking.routes.js";
+import promoRouter from "./routes/promo.routes.js";
+
+app.use("/api/v1/experiences", experienceRoter);
+app.use("/api/v1/bookings", bookingRouter);
+app.use("/api/v1/promo", promoRouter);
+
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 
 app.use(errorHandler);

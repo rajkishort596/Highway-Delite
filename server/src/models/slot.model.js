@@ -30,14 +30,14 @@ const SlotSchema = new Schema(
       default: 0,
       min: 0,
     },
+    isSoldOut: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
   }
 );
-
-SlotSchema.virtual("isSoldOut").get(function () {
-  return this.booked >= this.capacity;
-});
 
 export const Slot = mongoose.model("Slot", SlotSchema);
