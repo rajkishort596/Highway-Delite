@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-interface IHeaderProps {
-  onSearch: (query: string) => void;
-}
-
-const Header = ({ onSearch }: IHeaderProps) => {
+const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(searchQuery);
+
+    const query = searchQuery.trim();
+    if (query) {
+      navigate(`/?search=${encodeURIComponent(query)}`);
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -23,7 +27,7 @@ const Header = ({ onSearch }: IHeaderProps) => {
         </a>
 
         {/* Search Bar Section */}
-        <form onSubmit={handleSearch} className="">
+        <form onSubmit={handleSearch}>
           <div className="flex gap-4">
             <input
               type="search"

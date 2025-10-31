@@ -1,5 +1,6 @@
+import React from "react";
 import { Link } from "react-router-dom";
-// @ts-ignore: no type declarations for 'react-lazy-load-image-component'
+// @ts-ignore:
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -60,4 +61,4 @@ const ExperienceCard = ({ experience }: IExperienceCardProps) => {
   );
 };
 
-export default ExperienceCard;
+export default React.memo(ExperienceCard);

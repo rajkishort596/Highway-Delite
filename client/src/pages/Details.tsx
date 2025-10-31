@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-// @ts-ignore: no type declarations for 'react-lazy-load-image-component'
+import { useParams, useNavigate } from "react-router-dom";
+// @ts-ignore
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Spinner from "../components/Spinner";
 import { getExperienceById } from "../api/experience.Api";
+import { ArrowLeft } from "lucide-react";
 
 interface Slot {
   _id: string;
@@ -33,6 +34,8 @@ interface ApiResponse {
 
 const Details = () => {
   const { experienceId } = useParams();
+  const navigate = useNavigate();
+
   const [data, setData] = useState<ApiResponse | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedTime, setSelectedTime] = useState<string>("");
@@ -52,17 +55,13 @@ const Details = () => {
     fetchExperience();
   }, [experienceId]);
 
-  // Automatically select next available date
+  // Auto select next available date
   useEffect(() => {
     if (data && !selectedDate) {
       const sortedDates = Object.keys(data.availableSlots).sort(
         (a, b) => new Date(a).getTime() - new Date(b).getTime()
       );
-
-      if (sortedDates.length > 0) {
-        const nextDate = sortedDates[0];
-        setSelectedDate(nextDate);
-      }
+      if (sortedDates.length > 0) setSelectedDate(sortedDates[0]);
     }
   }, [data, selectedDate]);
 
@@ -92,15 +91,48 @@ const Details = () => {
   );
   const times = selectedDate ? availableSlots[selectedDate] : [];
 
+  const handleConfirm = () => {
+    if (!selectedDate || !selectedTime) return;
+
+    // Find the selected slot by time
+    const selectedSlot = data?.availableSlots[selectedDate]?.find(
+      (slot) => slot.time === selectedTime
+    );
+
+    if (!selectedSlot) {
+      console.error("Selected slot not found!");
+      return;
+    }
+
+    const bookingData = {
+      slotId: selectedSlot._id,
+      experienceId: experience._id,
+      experienceName: experience.name,
+      date: selectedDate,
+      time: selectedTime,
+      price: experience.price,
+      quantity,
+      total,
+    };
+
+    // Store for persistence
+    localStorage.setItem("checkoutData", JSON.stringify(bookingData));
+
+    // Navigate to checkout page and pass data
+    navigate("/checkout", { state: bookingData });
+  };
+
   return (
     <div className="w-full py-6">
-      {/* Back link */}
-      <button
-        onClick={() => history.back()}
-        className="text-sm text-gray-500 mb-4 hover:underline"
-      >
-        ← Details
-      </button>
+      <div className="flex items-center gap-2 mb-8">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-gray-600 hover:text-black cursor-pointer"
+        >
+          <ArrowLeft strokeWidth={1} />
+        </button>
+        <h1 className="text-lg font-medium text-gray-800">Details</h1>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Left section */}
@@ -118,7 +150,7 @@ const Details = () => {
           </h1>
           <p className="text-grey5 text-base mt-1">{experience.description}</p>
 
-          {/* Choose date */}
+          {/* Date selection */}
           <div className="mt-6">
             <h3 className="text-sm font-medium text-gray-700">Choose date</h3>
             <div className="flex gap-4 mt-2 flex-wrap">
@@ -141,7 +173,7 @@ const Details = () => {
             </div>
           </div>
 
-          {/* Choose time */}
+          {/* Time selection */}
           {selectedDate && (
             <div className="mt-6">
               <h3 className="text-sm font-medium text-gray-700">Choose time</h3>
@@ -192,55 +224,56 @@ const Details = () => {
           </div>
         </div>
 
-        {/* Right section - Booking Summary */}
-        <div className="bg-gray-50 rounded-xl p-5 h-fit">
-          <div className="flex justify-between text-sm text-gray-700 mb-2">
+        {/* Right section */}
+        <div className="bg-grey1 rounded-xl p-5 h-fit">
+          <div className="flex justify-between text-sm text-grey6 mb-2">
             <p>Starts at</p>
-            <p>₹{experience.price}</p>
+            <p className="text-black text-lg">₹{experience.price}</p>
           </div>
 
-          <div className="flex justify-between items-center text-sm text-gray-700 mb-2">
+          <div className="flex justify-between items-center text-sm text-grey6 mb-2">
             <p>Quantity</p>
-            <div className="flex items-center gap-3">
+            <div className="flex text-black items-center gap-3">
               <button
                 onClick={handleDecrease}
-                className="border rounded px-2 py-0.5"
+                className="border border-[#c9c9c9] w-5 h-5 flex items-center justify-center text-xs font-bold leading-none"
               >
                 −
               </button>
-              <span>{quantity}</span>
+              <span className="text-lg">{quantity}</span>
               <button
                 onClick={handleIncrease}
-                className="border rounded px-2 py-0.5"
+                className="border border-[#c9c9c9] w-5 h-5 flex items-center justify-center text-xs font-bold leading-none"
               >
                 +
               </button>
             </div>
           </div>
 
-          <div className="flex justify-between text-sm text-gray-700 mb-1">
+          <div className="flex justify-between text-sm text-grey6 mb-2">
             <p>Subtotal</p>
-            <p>₹{subtotal}</p>
+            <p className="text-black text-sm">₹{subtotal}</p>
           </div>
 
-          <div className="flex justify-between text-sm text-gray-700 mb-3">
+          <div className="flex justify-between text-sm text-grey6 mb-3">
             <p>Taxes</p>
-            <p>₹{taxes}</p>
+            <p className="text-black text-sm">₹{taxes}</p>
           </div>
 
-          <hr className="my-2" />
+          <hr className="my-4 bg-[#d9d9d9] h-px" />
 
-          <div className="flex justify-between font-semibold text-gray-900 text-base">
+          <div className="flex justify-between font-semibold text-black text-xl">
             <p>Total</p>
-            <p>₹{total}</p>
+            <p className="text-black">₹{total}</p>
           </div>
 
           <button
+            onClick={handleConfirm}
             disabled={!selectedDate || !selectedTime}
-            className={`w-full mt-5 py-2 rounded-md text-sm font-medium ${
+            className={`w-full mt-5 py-3 px-5 rounded-md text-lg font-medium  ${
               !selectedDate || !selectedTime
-                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                : "bg-yellow-400 text-black hover:bg-yellow-500"
+                ? "bg-grey2 text-[#7f7f7f] cursor-not-allowed"
+                : "bg-yellow text-black hover:bg-yellow-500 cursor-pointer"
             }`}
           >
             Confirm

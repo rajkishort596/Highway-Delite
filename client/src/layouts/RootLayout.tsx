@@ -6,7 +6,7 @@ const RootLayout = () => {
   return (
     <Container>
       <div className="min-h-screen">
-        <Header onSearch={() => console.log("Hello")} />
+        <Header />
         <main className="relative px-4 lg:px-6 xl:px-31 min-h-screen bg-white">
           <div className="min-h-screen">
             <Outlet />
