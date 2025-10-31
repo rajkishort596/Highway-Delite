@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { asyncHandler } from "./utils/AsyncHandler.js";
+import { asyncHandler } from "./utils/asyncHandler.js";
 
 const app = express();
 

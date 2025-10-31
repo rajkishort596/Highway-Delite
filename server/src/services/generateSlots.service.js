@@ -51,7 +51,7 @@ const generateFutureSlots = async (daysAhead = 5) => {
 
     console.log("✅ Slot generation complete.");
   } catch (error) {
-    console.error("❌ Slot generation failed:", err);
+    console.error("❌ Slot generation failed:", error);
   }
 };
 
