@@ -7,7 +7,7 @@ connectDB()
   .then(() => {
     app.listen(process.env.PORT || 8000, async () => {
       console.log(`⚙️ Server is running on port : ${process.env.PORT}`);
-      // await startGenerationJob(5);
+      await startGenerationJob(5);
     });
   })
   .catch((err) => {
