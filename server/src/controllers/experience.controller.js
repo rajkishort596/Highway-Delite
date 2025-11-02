@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Slot } from "../models/slot.model.js";
 
 const getExperiences = asyncHandler(async (req, res) => {
-  const experiences = await Experience.find();
+  const experiences = await Experience.find({}).sort({ createdAt: 1 });
 
   if (!experiences) {
     throw new ApiError(404, "No expereinces found");

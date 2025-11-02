@@ -14,6 +14,7 @@ const generateFutureSlots = async (daysAhead = 5) => {
 
     const experiences = await Experience.find();
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time part to start of day
 
     for (const exp of experiences) {
       const { frequency, times, capacityPerSlot, customDays } = exp;
@@ -21,7 +22,7 @@ const generateFutureSlots = async (daysAhead = 5) => {
       for (let i = 0; i < daysAhead; i++) {
         const date = new Date(today);
         date.setDate(today.getDate() + i);
-        const day = date.getDay(); // 0 = Sunday, 6 = Saturday
+        const day = date.getDay();
         const dayOfMonth = date.getDate();
 
         let shouldCreate = false;
@@ -34,17 +35,31 @@ const generateFutureSlots = async (daysAhead = 5) => {
 
         if (!shouldCreate) continue;
 
-        for (const time of times) {
-          const exists = await Slot.exists({ experience: exp._id, date, time });
-          if (exists) continue; // prevent duplicates
+        const startOfDay = new Date(date);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(date);
+        endOfDay.setHours(23, 59, 59, 999);
 
-          await Slot.create({
+        // Create all slots for this date in bulk after checking existence
+        const existingSlots = await Slot.find({
+          experience: exp._id,
+          date: { $gte: startOfDay, $lt: endOfDay },
+        });
+
+        const existingTimes = new Set(existingSlots.map((slot) => slot.time));
+
+        const newSlots = times
+          .filter((time) => !existingTimes.has(time))
+          .map((time) => ({
             experience: exp._id,
             date,
             time,
             capacity: capacityPerSlot,
             booked: 0,
-          });
+          }));
+
+        if (newSlots.length > 0) {
+          await Slot.insertMany(newSlots);
         }
       }
     }
