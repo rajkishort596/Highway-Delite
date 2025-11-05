@@ -75,6 +75,7 @@ const startGenerationJob = async (daysAhead = 5) => {
   cron.schedule("0 0 * * *", async () => {
     await generateFutureSlots(daysAhead);
   });
+  await generateFutureSlots(daysAhead); // Initial run on startup
 };
 
 export { startGenerationJob };
